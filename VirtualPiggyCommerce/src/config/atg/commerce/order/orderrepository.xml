@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<gsa-template xml-combine="append">
+
+	<!-- item-descriptor name="order">
+		<table name="virtualpiggy_order" type="auxiliary" id-column-name="order_id">
+			<property name="vpLoginId" data-type="string" column-name="VP_LOGIN_ID" category="Virtual Piggy Extensions" />
+			<property name="vpToken" data-type="string" column-name="VP_TOKEN" category="Virtual Piggy Extensions" />
+			<property name="vpChildId" data-type="string" column-name="VP_CHILD_ID" category="Virtual Piggy Extensions" />
+		</table>
+	</item-descriptor>
+    -->
+	<item-descriptor name="paymentGroup">
+		<table name="dcspp_pay_group" type="primary" id-column-name="payment_group_id">
+			<property name="id" column-name="payment_group_id" display-name="paymentGroupId" writable="false" />
+			<property name="type">
+				<attribute name="useCodeForValue" value="false" />
+				<option value="virtualPiggyPayment" code="11" />
+			</property>
+		</table>
+	</item-descriptor>
+
+	<item-descriptor name="virtualPiggyPayment"	sub-type-value="virtualPiggyPayment" display-name="virtualPiggyPayment"
+		use-id-for-path="false" super-type="paymentGroup" hidden="false" expert="false" content="false" writable="true"
+		cache-mode="simple"	default="false" item-cache-timeout="180000" id-separator=":">
+		<attribute name="resourceBundle" value="atg.commerce.OrderRepositoryTemplateResources" />
+		<table name="virtualpiggy_payment" type="auxiliary" id-column-name="payment_group_id">
+			<property name="vpToken" column-name="VP_TOKEN" data-type="string"	display-name="Virtual Piggy Token"/>
+			<property name="vpChildId" column-name="VP_CHILD_ID" data-type="string" display-name="Virtual Piggy ChildId"/>
+			<property name="vpTransDesc" column-name="VP_TRANS_DESC" data-type="string"	display-name="Virtual Piggy Transaction Description" />
+			<property name="vpPaymentAccId"	column-name="VP_PAYMENT_ACCOUNT_ID" data-type="string"	display-name="Virtual Piggy Payment Account Id" />
+		</table>
+		
+	</item-descriptor>
+
+	<item-descriptor name="virtualPiggyPaymentStatus" super-type="paymentStatus" sub-type-value="virtualPiggyPaymentStatus">
+		<table name="virtualpiggy_payment_status" type="auxiliary" id-column-name="status_id">
+			<property name="vpTransactionStatus" data-type="string" column-name="VP_TRANSACTION_STATUS" display-name="Virtual Piggy Transaction Status">
+				<!-- attribute name="useCodeForValue" value="false" />
+				<option value="Processed" code="0" />
+				<option value="ApprovalPending" code="1" />
+				<option value="LimitsExceeded" code="2" />
+				<option value="Error" code="3" /-->
+			</property>
+		</table>
+	</item-descriptor>
+
+	<item-descriptor name="paymentStatus">
+		<table name="dcspp_pay_status" type="primary" id-column-name="status_id">
+			<property name="type">
+				<attribute name="useCodeForValue" value="false" />
+				<option value="virtualPiggyPaymentStatus" code="11" />
+			</property>
+		</table>
+	</item-descriptor>
+
+</gsa-template>

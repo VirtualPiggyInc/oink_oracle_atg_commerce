@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+
+<project name="VirtualPiggyCommerce" default="all">
+    <description>Virtual Piggy Integration - Commerce Module</description>
+
+    <import file="env.xml" />
+
+    <import file="${VPI_basedir}/common_build.xml" />
+
+    <macrodef name="set-classpath"><sequential>
+
+        <VPI-set-classpath />
+        <path id="classpath">
+            <path refid="VPI_classpath" />
+        </path>
+
+    </sequential></macrodef>
+
+    <property name="out_vp_ws_stubs_java" location="build/vp_ws_stubs_java"/>
+    <property name="out_vp_ws_stubs_classes" location="build/vp_ws_stubs_classes"/>
+    <property name="out_vp_lib" location="build/lib"/>
+
+    <target name="-check-generated-stubs">
+        <available property="stubs.generated" file="${out_vp_ws_stubs_java}"/>
+    </target>
+	
+    <target name="generate-stubs" depends="-check-generated-stubs" unless="stubs.generated">
+        <set-classpath />
+        <mkdir dir="${out_vp_ws_stubs_java}" />
+        <mkdir dir="${out_vp_lib}" />
+
+        <java failonerror="true" fork="true" classname="org.apache.axis.wsdl.WSDL2Java" classpathref="classpath">
+            <arg line="-o '${out_vp_ws_stubs_java}' -p com.virtualpiggy.stub '${VPI_basedir}/src/wsdl/TransactionService.wsdl'"/>
+        </java>
+
+        <mkdir dir="${out_vp_ws_stubs_classes}" />
+        <javac classpathref="classpath"  debug="${include_debug_info}" srcdir="${out_vp_ws_stubs_java}" destdir="${out_vp_ws_stubs_classes}" />
+
+        <jar destfile="${out_vp_lib}/virtualpiggy_trservice_client.jar" basedir="${out_vp_ws_stubs_classes}" includes="**/*.class" />
+    </target>
+
+    <target name="local-build" depends="generate-stubs, common_build.local-build" />
+	
+	<target name="all" depends="common_build.local-clean, generate-stubs, common_build.local-build, common_build.local-install" />
+</project>

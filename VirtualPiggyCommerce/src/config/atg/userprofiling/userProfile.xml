@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gsa-template PUBLIC "-//Art Technology Group, Inc.//DTD General SQL Adapter//EN"
+        "http://www.atg.com/dtds/gsa/gsa_1.0.dtd">
+<gsa-template xml-combine="append">
+    <header>
+        <name>Profile Repository Extensions For VirtualPiggy</name>
+        <author>Tarun</author>
+        <version>1.0</version>
+    </header>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Additions to the "user" item descriptor for Virtyal Piggy Checkout. -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+	<item-descriptor name="user">
+		<!-- transient properties -->		
+		<property name="isVirtualPiggyCheckout" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="boolean" default="false"/>
+		<property name="virtualPiggyUsername" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="virtualPiggyUserType" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="virtualPiggyUserToken" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="virtualPiggyUserShipAddresses" data-type="map" component-item-type="contactInfo" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true"/>
+		<!-- virtualPiggyUserShipAddress is used to set as default shipping address -->
+		<property name="virtualPiggyUserShipAddress" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" item-type="contactInfo"/>
+		<!-- TODO: parent properties -->
+		<property name="virtualPiggySelectedChildId" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="virtualPiggySelectedPaymentId" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<!-- ParentAddressSelection -->
+		<property name="virtualPiggyParentShipAddressSelection" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		
+		<property name="virtualPiggyChildren" data-type="list" component-item-type="virtualPiggyChild" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true"/>
+		<property name="virtualPiggyPayments" data-type="list" component-item-type="virtualPiggyParentPayment" display-name-resource="Virtual Piggy Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true"/>
+	</item-descriptor>
+	
+	<item-descriptor name="virtualPiggyChild">
+		<property name="childId" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="name" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="type" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+	</item-descriptor>
+
+	<item-descriptor name="virtualPiggyParentPayment">
+		<property name="paymentId" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="name" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="type" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+		<property name="url" display-name-resource="Virtual Piggy Child Info" category-resource="VirtualPiggy-Login" required="false" cache-mode="inherit" writable="true" data-type="string"/>
+	</item-descriptor>
+				
+</gsa-template>

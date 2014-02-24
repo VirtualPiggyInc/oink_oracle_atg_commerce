@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
+	
+<pipelinemanager>
+<!-- This chain is used to process Virtual Piggy payment group to authorize/credit/debit a  payment group.-->
+	<pipelinechain name="virtualPiggyPaymentProcessorChain" transaction="TX_REQUIRED" headlink="createVirtualPiggyPaymentInfo">
+		  <pipelinelink name="createVirtualPiggyPaymentInfo" transaction="TX_MANDATORY">
+		    <processor jndi="/com/virtualpiggy/integration/order/payment/processor/CreateVirtualPiggyPaymentInfo"/>
+		    <transition returnvalue="1" link="processVirtualPiggyPayment"/>
+		  </pipelinelink>
+		  <pipelinelink name="processVirtualPiggyPayment" transaction="TX_MANDATORY">
+		    <processor jndi="/com/virtualpiggy/integration/order/payment/processor/ProcessVirtualPiggyPayment"/>
+		  </pipelinelink>
+	</pipelinechain>
+</pipelinemanager>

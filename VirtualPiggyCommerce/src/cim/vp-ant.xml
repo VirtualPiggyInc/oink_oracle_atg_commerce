@@ -1,0 +1,27 @@
+<project name="vp-ant-utility" default="" basedir=".">
+	<property environment="env" />
+	<target name="crsJSPOverride" >	
+		<echo>"CRS JSP Overriding"</echo>
+		<tstamp/>
+		<copy todir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/store.war_${DSTAMP}-${TSTAMP}" overwrite="true" verbose="true">
+			<fileset dir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/store.war" defaultexcludes="no">
+				<include name="*/**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/store.war" overwrite="true" verbose="true">
+			<fileset dir="${env.DYNAMO_HOME}/../VirtualPiggyCommerce/crsJspFiles/store.war" defaultexcludes="no">
+				<include name="*/**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/storedocroot.war_${DSTAMP}-${TSTAMP}" overwrite="true" verbose="true">
+			<fileset dir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/storedocroot.war" defaultexcludes="no">
+				<include name="*/**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${env.DYNAMO_HOME}/../CommerceReferenceStore/Store/Storefront/j2ee-apps/Storefront/storedocroot.war" overwrite="true" verbose="true">
+			<fileset dir="${env.DYNAMO_HOME}/../VirtualPiggyCommerce/crsJspFiles/storedocroot.war" defaultexcludes="no">
+				<include name="*/**/*"/>
+			</fileset>
+		</copy>
+	</target> 
+</project>

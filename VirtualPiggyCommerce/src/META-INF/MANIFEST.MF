@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+ATG-Product: VirtualPiggyCommerce
+ATG-Config-Path: config/
+ATG-Required: DCS
+ATG-Required-If-Present: Fulfillment
+ATG-Version: 10.1.2
+ATG-Client-Class-Path: lib/classes.jar lib/virtualpiggy_trservice_client.jar lib/axis.jar lib/wsdl4j-1.5.1.jar lib/jaxrpc.jar lib/saaj.jar lib/commons-discovery-0.2.jar
+ATG-Class-Path: lib/classes.jar lib/virtualpiggy_trservice_client.jar lib/axis.jar lib/wsdl4j-1.5.1.jar lib/jaxrpc.jar lib/saaj.jar lib/commons-discovery-0.2.jar commons-lang-2.6.jar
+

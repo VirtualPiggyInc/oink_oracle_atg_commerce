@@ -1,0 +1,1156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions name="TransactionService"
+	targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsa10="http://www.w3.org/2005/08/addressing"
+	xmlns:tns="http://tempuri.org/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+	xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+	xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy"
+	xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract"
+	xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing"
+	xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/">
+	<wsp:Policy wsu:Id="BasicHttpBinding_ITransactionService_policy">
+		<wsp:ExactlyOne>
+			<wsp:All>
+				<sp:TransportBinding
+					xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+					<wsp:Policy>
+						<sp:TransportToken>
+							<wsp:Policy>
+								<sp:HttpsToken RequireClientCertificate="false" />
+							</wsp:Policy>
+						</sp:TransportToken>
+						<sp:AlgorithmSuite>
+							<wsp:Policy>
+								<sp:Basic256 />
+							</wsp:Policy>
+						</sp:AlgorithmSuite>
+						<sp:Layout>
+							<wsp:Policy>
+								<sp:Strict />
+							</wsp:Policy>
+						</sp:Layout>
+					</wsp:Policy>
+				</sp:TransportBinding>
+			</wsp:All>
+		</wsp:ExactlyOne>
+	</wsp:Policy>
+	<wsdl:types>
+		<xsd:schema targetNamespace="http://tempuri.org/Imports">
+			<xsd:import
+				schemaLocation="https://development.virtualpiggy.com/Services/TransactionService.svc?xsd=xsd0"
+				namespace="http://tempuri.org/" />
+			<xsd:import
+				schemaLocation="https://development.virtualpiggy.com/Services/TransactionService.svc?xsd=xsd1"
+				namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+			<xsd:import
+				schemaLocation="https://development.virtualpiggy.com/Services/TransactionService.svc?xsd=xsd2"
+				namespace="http://schemas.datacontract.org/2004/07/VirtualPiggy.Web.Services.Model" />
+			<xsd:import
+				schemaLocation="https://development.virtualpiggy.com/Services/TransactionService.svc?xsd=xsd3"
+				namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+			<xsd:import
+				schemaLocation="https://development.virtualpiggy.com/Services/TransactionService.svc?xsd=xsd4"
+				namespace="http://schemas.datacontract.org/2004/07/VirtualPiggy.Services.Model" />
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="ITransactionService_PingHeaders_InputMessage">
+		<wsdl:part name="parameters" element="tns:PingHeaders" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_PingHeaders_OutputMessage">
+		<wsdl:part name="parameters" element="tns:PingHeadersResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_AuthenticateUser_InputMessage">
+		<wsdl:part name="parameters" element="tns:AuthenticateUser" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_AuthenticateUser_OutputMessage">
+		<wsdl:part name="parameters" element="tns:AuthenticateUserResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_AuthenticateChild_InputMessage">
+		<wsdl:part name="parameters" element="tns:AuthenticateChild" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_AuthenticateChild_OutputMessage">
+		<wsdl:part name="parameters" element="tns:AuthenticateChildResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ProcessTransaction_InputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessTransaction" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ProcessTransaction_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessTransactionResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_ProcessParentTransaction_InputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessParentTransaction" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_ProcessParentTransaction_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessParentTransactionResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ProcessSubscription_InputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessSubscription" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ProcessSubscription_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessSubscriptionResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_ProcessParentSubscription_InputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessParentSubscription" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_ProcessParentSubscription_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ProcessParentSubscriptionResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ApproveSubscription_InputMessage">
+		<wsdl:part name="parameters" element="tns:ApproveSubscription" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_ApproveSubscription_OutputMessage">
+		<wsdl:part name="parameters" element="tns:ApproveSubscriptionResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_SaveWishList_InputMessage">
+		<wsdl:part name="parameters" element="tns:SaveWishList" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_SaveWishList_OutputMessage">
+		<wsdl:part name="parameters" element="tns:SaveWishListResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetPaymentAccounts_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetPaymentAccounts" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetPaymentAccounts_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetPaymentAccountsResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetParentAddress_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetParentAddress" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetParentAddress_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetParentAddressResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetChildAddress_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetChildAddress" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetChildAddress_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetChildAddressResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetAllChildren_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetAllChildren" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetAllChildren_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetAllChildrenResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetParentChildAddress_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetParentChildAddress" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetParentChildAddress_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetParentChildAddressResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactionDetails_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactionDetails" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactionDetails_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactionDetailsResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactions_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactions" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactions_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactionsResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetLoyalityBalance_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetLoyalityBalance" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetLoyalityBalance_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetLoyalityBalanceResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_AddItemToMerchantExclusionList_InputMessage">
+		<wsdl:part name="parameters" element="tns:AddItemToMerchantExclusionList" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_AddItemToMerchantExclusionList_OutputMessage">
+		<wsdl:part name="parameters" element="tns:AddItemToMerchantExclusionListResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_RemoveItemFromMerchantExclusionList_InputMessage">
+		<wsdl:part name="parameters" element="tns:RemoveItemFromMerchantExclusionList" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_RemoveItemFromMerchantExclusionList_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:RemoveItemFromMerchantExclusionListResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactionByRef_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactionByRef" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetTransactionByRef_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetTransactionByRefResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetOrCreateApplication_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetOrCreateApplication" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetOrCreateApplication_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetOrCreateApplicationResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetChildGenderAge_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetChildGenderAge" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetChildGenderAge_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetChildGenderAgeResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetCouponCodes_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetCouponCodes" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetCouponCodes_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetCouponCodesResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_CaptureTransactionByIdentifier_InputMessage">
+		<wsdl:part name="parameters" element="tns:CaptureTransactionByIdentifier" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_CaptureTransactionByIdentifier_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CaptureTransactionByIdentifierResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_CaptureTransactionByReference_InputMessage">
+		<wsdl:part name="parameters" element="tns:CaptureTransactionByReference" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_CaptureTransactionByReference_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CaptureTransactionByReferenceResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCaptureTransactionByIdentifier_InputMessage">
+		<wsdl:part name="parameters" element="tns:MerchantCaptureTransactionByIdentifier" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCaptureTransactionByIdentifier_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:MerchantCaptureTransactionByIdentifierResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCaptureTransactionByReference_InputMessage">
+		<wsdl:part name="parameters" element="tns:MerchantCaptureTransactionByReference" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCaptureTransactionByReference_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:MerchantCaptureTransactionByReferenceResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCancelSubscription_InputMessage">
+		<wsdl:part name="parameters" element="tns:MerchantCancelSubscription" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCancelSubscription_OutputMessage">
+		<wsdl:part name="parameters" element="tns:MerchantCancelSubscriptionResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCancelSubscriptionByExternalRef_InputMessage">
+		<wsdl:part name="parameters"
+			element="tns:MerchantCancelSubscriptionByExternalRef" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_MerchantCancelSubscriptionByExternalRef_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:MerchantCancelSubscriptionByExternalRefResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionTransactions_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionTransactions" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionTransactions_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionTransactionsResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionTransactionsByRef_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionTransactionsByRef" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionTransactionsByRef_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetSubscriptionTransactionsByRefResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetMerchantTransactionByDateAndTime_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetMerchantTransactionByDateAndTime" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetMerchantTransactionByDateAndTime_OutputMessage">
+		<wsdl:part name="parameters"
+			element="tns:GetMerchantTransactionByDateAndTimeResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_TestCallBackConnection_InputMessage">
+		<wsdl:part name="parameters" element="tns:TestCallBackConnection" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_TestCallBackConnection_OutputMessage">
+		<wsdl:part name="parameters" element="tns:TestCallBackConnectionResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_RefundTransactionById_InputMessage">
+		<wsdl:part name="parameters" element="tns:RefundTransactionById" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_RefundTransactionById_OutputMessage">
+		<wsdl:part name="parameters" element="tns:RefundTransactionByIdResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_RefundTransactionByReference_InputMessage">
+		<wsdl:part name="parameters" element="tns:RefundTransactionByReference" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_RefundTransactionByReference_OutputMessage">
+		<wsdl:part name="parameters" element="tns:RefundTransactionByReferenceResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_SendQuickConnectMail_InputMessage">
+		<wsdl:part name="parameters" element="tns:SendQuickConnectMail" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_SendQuickConnectMail_OutputMessage">
+		<wsdl:part name="parameters" element="tns:SendQuickConnectMailResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetSubscriptionStatus_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionStatus" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_GetSubscriptionStatus_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionStatusResponse" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionStatusByRef_InputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionStatusByRef" />
+	</wsdl:message>
+	<wsdl:message
+		name="ITransactionService_GetSubscriptionStatusByRef_OutputMessage">
+		<wsdl:part name="parameters" element="tns:GetSubscriptionStatusByRefResponse" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_CreateExternalParent_InputMessage">
+		<wsdl:part name="parameters" element="tns:CreateExternalParent" />
+	</wsdl:message>
+	<wsdl:message name="ITransactionService_CreateExternalParent_OutputMessage">
+		<wsdl:part name="parameters" element="tns:CreateExternalParentResponse" />
+	</wsdl:message>
+	<wsdl:portType name="ITransactionService">
+		<wsdl:documentation>This interface should be implemented by the
+			Transaction Service</wsdl:documentation>
+		<wsdl:operation name="PingHeaders">
+			<wsdl:documentation>Used to verify connectivity to the web service
+				and verifies validity for the header values vp.MerchantIdentifier
+				and vp.APIkey</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/PingHeaders"
+				message="tns:ITransactionService_PingHeaders_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/PingHeadersResponse"
+				message="tns:ITransactionService_PingHeaders_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="AuthenticateUser">
+			<wsdl:documentation>Method to authenticate parent or child and
+				returns a token to use in subsequent calls</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/AuthenticateUser"
+				message="tns:ITransactionService_AuthenticateUser_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/AuthenticateUserResponse"
+				message="tns:ITransactionService_AuthenticateUser_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="AuthenticateChild">
+			<wsdl:documentation>Method to authenticate child</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/AuthenticateChild"
+				message="tns:ITransactionService_AuthenticateChild_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/AuthenticateChildResponse"
+				message="tns:ITransactionService_AuthenticateChild_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ProcessTransaction">
+			<wsdl:documentation>Method to process child transaction
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessTransaction"
+				message="tns:ITransactionService_ProcessTransaction_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessTransactionResponse"
+				message="tns:ITransactionService_ProcessTransaction_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ProcessParentTransaction">
+			<wsdl:documentation>Method to process parent transaction
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessParentTransaction"
+				message="tns:ITransactionService_ProcessParentTransaction_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessParentTransactionResponse"
+				message="tns:ITransactionService_ProcessParentTransaction_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ProcessSubscription">
+			<wsdl:documentation>Method to process child subscription
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessSubscription"
+				message="tns:ITransactionService_ProcessSubscription_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessSubscriptionResponse"
+				message="tns:ITransactionService_ProcessSubscription_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ProcessParentSubscription">
+			<wsdl:documentation>Method to process a parent subscription
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessParentSubscription"
+				message="tns:ITransactionService_ProcessParentSubscription_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/ProcessParentSubscriptionResponse"
+				message="tns:ITransactionService_ProcessParentSubscription_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="ApproveSubscription">
+			<wsdl:documentation>Method to approve a subscription
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/ApproveSubscription"
+				message="tns:ITransactionService_ApproveSubscription_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/ApproveSubscriptionResponse"
+				message="tns:ITransactionService_ApproveSubscription_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="SaveWishList">
+			<wsdl:documentation>Method to save wish list for a particular child
+			</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/SaveWishList"
+				message="tns:ITransactionService_SaveWishList_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/SaveWishListResponse"
+				message="tns:ITransactionService_SaveWishList_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetPaymentAccounts">
+			<wsdl:documentation>Method to return a Parent's payment accounts
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetPaymentAccounts"
+				message="tns:ITransactionService_GetPaymentAccounts_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetPaymentAccountsResponse"
+				message="tns:ITransactionService_GetPaymentAccounts_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetParentAddress">
+			<wsdl:documentation>Method to return a Parent's address details
+			</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetParentAddress"
+				message="tns:ITransactionService_GetParentAddress_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetParentAddressResponse"
+				message="tns:ITransactionService_GetParentAddress_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildAddress">
+			<wsdl:documentation>Method to return Child's address details
+			</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetChildAddress"
+				message="tns:ITransactionService_GetChildAddress_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetChildAddressResponse"
+				message="tns:ITransactionService_GetChildAddress_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetAllChildren">
+			<wsdl:documentation>Method to return a Parent's list of children he
+				can purchase items for</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetAllChildren"
+				message="tns:ITransactionService_GetAllChildren_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetAllChildrenResponse"
+				message="tns:ITransactionService_GetAllChildren_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetParentChildAddress">
+			<wsdl:documentation>Method to return Child's address details
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetParentChildAddress"
+				message="tns:ITransactionService_GetParentChildAddress_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetParentChildAddressResponse"
+				message="tns:ITransactionService_GetParentChildAddress_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactionDetails">
+			<wsdl:documentation>Service method to return transaction details of
+				given identifier</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionDetails"
+				message="tns:ITransactionService_GetTransactionDetails_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionDetailsResponse"
+				message="tns:ITransactionService_GetTransactionDetails_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactions">
+			<wsdl:documentation>Service method to return child transactions
+				between two given dates</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetTransactions"
+				message="tns:ITransactionService_GetTransactions_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionsResponse"
+				message="tns:ITransactionService_GetTransactions_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetLoyalityBalance">
+			<wsdl:documentation>Service method to return reward points for a
+				particular child application</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetLoyalityBalance"
+				message="tns:ITransactionService_GetLoyalityBalance_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetLoyalityBalanceResponse"
+				message="tns:ITransactionService_GetLoyalityBalance_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="AddItemToMerchantExclusionList">
+			<wsdl:documentation>Service method to add item to Merchant exclusion
+				list</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/AddItemToMerchantExclusionList"
+				message="tns:ITransactionService_AddItemToMerchantExclusionList_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/AddItemToMerchantExclusionListResponse"
+				message="tns:ITransactionService_AddItemToMerchantExclusionList_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="RemoveItemFromMerchantExclusionList">
+			<wsdl:documentation>Service method to remove an item from the
+				Merchant Exclusion List</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/RemoveItemFromMerchantExclusionList"
+				message="tns:ITransactionService_RemoveItemFromMerchantExclusionList_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/RemoveItemFromMerchantExclusionListResponse"
+				message="tns:ITransactionService_RemoveItemFromMerchantExclusionList_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactionByRef">
+			<wsdl:documentation>Get transaction identifier for a given external
+				reference</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionByRef"
+				message="tns:ITransactionService_GetTransactionByRef_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetTransactionByRefResponse"
+				message="tns:ITransactionService_GetTransactionByRef_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetOrCreateApplication">
+			<wsdl:documentation>Method to find or create a merchant
+				application.The merchant identifier in the header is now the
+				merchant id as opposed to the merchant app id</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetOrCreateApplication"
+				message="tns:ITransactionService_GetOrCreateApplication_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetOrCreateApplicationResponse"
+				message="tns:ITransactionService_GetOrCreateApplication_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetChildGenderAge">
+			<wsdl:documentation>Get Child's gender and age by passing child
+				identifier / token</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetChildGenderAge"
+				message="tns:ITransactionService_GetChildGenderAge_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetChildGenderAgeResponse"
+				message="tns:ITransactionService_GetChildGenderAge_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetCouponCodes">
+			<wsdl:documentation>To get the coupon list</wsdl:documentation>
+			<wsdl:input wsaw:Action="http://tempuri.org/ITransactionService/GetCouponCodes"
+				message="tns:ITransactionService_GetCouponCodes_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetCouponCodesResponse"
+				message="tns:ITransactionService_GetCouponCodes_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="CaptureTransactionByIdentifier">
+			<wsdl:documentation>For a 2 step transaction process, capture or
+				cancel the transaction </wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/CaptureTransactionByIdentifier"
+				message="tns:ITransactionService_CaptureTransactionByIdentifier_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/CaptureTransactionByIdentifierResponse"
+				message="tns:ITransactionService_CaptureTransactionByIdentifier_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="CaptureTransactionByReference">
+			<wsdl:documentation>For a 2 step transaction process, capture or
+				cancel the transaction </wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/CaptureTransactionByReference"
+				message="tns:ITransactionService_CaptureTransactionByReference_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/CaptureTransactionByReferenceResponse"
+				message="tns:ITransactionService_CaptureTransactionByReference_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCaptureTransactionByIdentifier">
+			<wsdl:documentation>Ability for a merchant to capture or cancel a
+				credit card transaction in a 2 step process</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByIdentifier"
+				message="tns:ITransactionService_MerchantCaptureTransactionByIdentifier_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByIdentifierResponse"
+				message="tns:ITransactionService_MerchantCaptureTransactionByIdentifier_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCaptureTransactionByReference">
+			<wsdl:documentation>Ability for a merchant to capture or cancel a
+				credit card transaction in a 2 step process</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByReference"
+				message="tns:ITransactionService_MerchantCaptureTransactionByReference_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByReferenceResponse"
+				message="tns:ITransactionService_MerchantCaptureTransactionByReference_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCancelSubscription">
+			<wsdl:documentation>Cancel subscription by merchant.
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCancelSubscription"
+				message="tns:ITransactionService_MerchantCancelSubscription_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCancelSubscriptionResponse"
+				message="tns:ITransactionService_MerchantCancelSubscription_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCancelSubscriptionByExternalRef">
+			<wsdl:documentation>Cancel subscription by merchant.
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCancelSubscriptionByExternalRef"
+				message="tns:ITransactionService_MerchantCancelSubscriptionByExternalRef_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/MerchantCancelSubscriptionByExternalRefResponse"
+				message="tns:ITransactionService_MerchantCancelSubscriptionByExternalRef_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionTransactions">
+			<wsdl:documentation>Creates a list of processed transactions
+				associated with a subscription</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionTransactions"
+				message="tns:ITransactionService_GetSubscriptionTransactions_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionTransactionsResponse"
+				message="tns:ITransactionService_GetSubscriptionTransactions_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionTransactionsByRef">
+			<wsdl:documentation>Creates a list of processed transactions
+				associated with a subscription</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionTransactionsByRef"
+				message="tns:ITransactionService_GetSubscriptionTransactionsByRef_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionTransactionsByRefResponse"
+				message="tns:ITransactionService_GetSubscriptionTransactionsByRef_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetMerchantTransactionByDateAndTime">
+			<wsdl:documentation>Get the a list of transactions associated with a
+				merchant between geven date range</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetMerchantTransactionByDateAndTime"
+				message="tns:ITransactionService_GetMerchantTransactionByDateAndTime_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetMerchantTransactionByDateAndTimeResponse"
+				message="tns:ITransactionService_GetMerchantTransactionByDateAndTime_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="TestCallBackConnection">
+			<wsdl:documentation>Service method to test the callback connection
+				between VP and merchant call back url</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/TestCallBackConnection"
+				message="tns:ITransactionService_TestCallBackConnection_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/TestCallBackConnectionResponse"
+				message="tns:ITransactionService_TestCallBackConnection_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="RefundTransactionById">
+			<wsdl:documentation>To handle transaction refunds by Id.
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/RefundTransactionById"
+				message="tns:ITransactionService_RefundTransactionById_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/RefundTransactionByIdResponse"
+				message="tns:ITransactionService_RefundTransactionById_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="RefundTransactionByReference">
+			<wsdl:documentation>To handle transaction refunds by reference.
+			</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/RefundTransactionByReference"
+				message="tns:ITransactionService_RefundTransactionByReference_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/RefundTransactionByReferenceResponse"
+				message="tns:ITransactionService_RefundTransactionByReference_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="SendQuickConnectMail">
+			<wsdl:documentation>Service method to send an email to Parent about
+				Quick Connect</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/SendQuickConnectMail"
+				message="tns:ITransactionService_SendQuickConnectMail_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/SendQuickConnectMailResponse"
+				message="tns:ITransactionService_SendQuickConnectMail_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionStatus">
+			<wsdl:documentation>Method to get subscription status by Subscription
+				Identifier</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionStatus"
+				message="tns:ITransactionService_GetSubscriptionStatus_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionStatusResponse"
+				message="tns:ITransactionService_GetSubscriptionStatus_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionStatusByRef">
+			<wsdl:documentation>Method to get subscription status by subscription
+				External Reference</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionStatusByRef"
+				message="tns:ITransactionService_GetSubscriptionStatusByRef_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/GetSubscriptionStatusByRefResponse"
+				message="tns:ITransactionService_GetSubscriptionStatusByRef_OutputMessage" />
+		</wsdl:operation>
+		<wsdl:operation name="CreateExternalParent">
+			<wsdl:documentation>Creates account for the external(merchant)
+				referral parent</wsdl:documentation>
+			<wsdl:input
+				wsaw:Action="http://tempuri.org/ITransactionService/CreateExternalParent"
+				message="tns:ITransactionService_CreateExternalParent_InputMessage" />
+			<wsdl:output
+				wsaw:Action="http://tempuri.org/ITransactionService/CreateExternalParentResponse"
+				message="tns:ITransactionService_CreateExternalParent_OutputMessage" />
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="BasicHttpBinding_ITransactionService"
+		type="tns:ITransactionService">
+		<wsp:PolicyReference URI="#BasicHttpBinding_ITransactionService_policy" />
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+		<wsdl:operation name="PingHeaders">
+			<soap:operation soapAction="http://tempuri.org/ITransactionService/PingHeaders"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AuthenticateUser">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/AuthenticateUser"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AuthenticateChild">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/AuthenticateChild"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessTransaction">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/ProcessTransaction"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessParentTransaction">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/ProcessParentTransaction"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessSubscription">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/ProcessSubscription"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ProcessParentSubscription">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/ProcessParentSubscription"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="ApproveSubscription">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/ApproveSubscription"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SaveWishList">
+			<soap:operation soapAction="http://tempuri.org/ITransactionService/SaveWishList"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetPaymentAccounts">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetPaymentAccounts"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetParentAddress">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetParentAddress"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildAddress">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetChildAddress"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetAllChildren">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetAllChildren"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetParentChildAddress">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetParentChildAddress"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactionDetails">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetTransactionDetails"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactions">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetTransactions"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetLoyalityBalance">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetLoyalityBalance"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="AddItemToMerchantExclusionList">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/AddItemToMerchantExclusionList"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RemoveItemFromMerchantExclusionList">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/RemoveItemFromMerchantExclusionList"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetTransactionByRef">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetTransactionByRef"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetOrCreateApplication">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetOrCreateApplication"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetChildGenderAge">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetChildGenderAge"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetCouponCodes">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetCouponCodes"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CaptureTransactionByIdentifier">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/CaptureTransactionByIdentifier"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CaptureTransactionByReference">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/CaptureTransactionByReference"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCaptureTransactionByIdentifier">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByIdentifier"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCaptureTransactionByReference">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/MerchantCaptureTransactionByReference"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCancelSubscription">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/MerchantCancelSubscription"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="MerchantCancelSubscriptionByExternalRef">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/MerchantCancelSubscriptionByExternalRef"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionTransactions">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetSubscriptionTransactions"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionTransactionsByRef">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetSubscriptionTransactionsByRef"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetMerchantTransactionByDateAndTime">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetMerchantTransactionByDateAndTime"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="TestCallBackConnection">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/TestCallBackConnection"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RefundTransactionById">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/RefundTransactionById"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="RefundTransactionByReference">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/RefundTransactionByReference"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="SendQuickConnectMail">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/SendQuickConnectMail"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionStatus">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetSubscriptionStatus"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="GetSubscriptionStatusByRef">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/GetSubscriptionStatusByRef"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="CreateExternalParent">
+			<soap:operation
+				soapAction="http://tempuri.org/ITransactionService/CreateExternalParent"
+				style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="TransactionService">
+		<wsdl:port name="BasicHttpBinding_ITransactionService"
+			binding="tns:BasicHttpBinding_ITransactionService">
+			<soap:address
+				location="https://development.virtualpiggy.com/Services/TransactionService.svc" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

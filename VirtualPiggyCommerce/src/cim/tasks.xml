@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tasks SYSTEM "http://www.atg.com/dtds/task_1_0.dtd">
+<tasks>
+	<task class="atg.cim.worker.common.GenericAntExecutionTask" id="installVPCheckoutPagesTask">
+		<property name="antFile">
+		  <value>${dynamo.root}/VirtualPiggyCommerce/cim/vp-ant.xml</value>
+		</property>
+		<property name="antTarget">
+		  <value>crsJSPOverride</value>
+		</property>
+	</task> 
+</tasks>
+

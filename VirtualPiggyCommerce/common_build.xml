@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<project name="common_build" >
+
+    <target name="-print-info">
+        <echo message="######################################" />
+        <echo message="## ${ant.project.name}" />
+    </target>
+
+    <target name="local-clean">
+        <delete failonerror="false" dir="build" />
+        <delete failonerror="false" dir="${deployedPath}" />
+        <delete failonerror="false" dir="${DYNAMO_HOME}/../${modulepath}" />
+    </target>
+    
+    <target name="clean" depends="-print-info, local-clean">
+    </target>
+
+    <target name="compile">
+        <set-classpath />
+        <mkdir dir="build/classes"/>
+        <javac classpathref="classpath"  debug="${include_debug_info}" srcdir="src/java" destdir="build/classes" />
+        <copy todir="build/classes">
+            <fileset dir="src/java">
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+	
+    <target name="create-jar">
+        <jar destfile="build/lib/classes.jar" basedir="build/classes" />
+    </target>
+	
+    <target name="local-build" depends="compile, create-jar" />
+	
+    <target name="build" depends="-print-info, local-build">
+    </target>
+
+    <target name="local-install">
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/META-INF">
+            <fileset dir="src/META-INF" />
+        </copy>
+
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/config">
+            <fileset dir="src/config" erroronmissingdir="false" />
+        </copy>
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/lib">
+            <fileset dir="src/lib" erroronmissingdir="false" />
+            <fileset dir="build/lib" erroronmissingdir="false" />
+        </copy>
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/cim">
+            <fileset dir="src/cim" erroronmissingdir="false" />
+        </copy>
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/crsJspFiles">
+                    <fileset dir="src/crsJspFiles" erroronmissingdir="false" />
+        </copy>
+        <copy todir="${DYNAMO_HOME}/../${modulepath}/sql">
+            <fileset dir="src/sql" erroronmissingdir="false" />
+        </copy>
+        <!--copy todir="${DYNAMO_HOME}/../${modulepath}/src">
+            <fileset dir="src/java" erroronmissingdir="false" />
+        </copy-->
+        <mkdir dir="${deployedPath}" />
+        <jar destfile="${deployedPath}/ATG_VirtualPiggy_Integration.jar" basedir="${DYNAMO_HOME}/.." includes="${modulepath}/**" />
+    </target>
+ 
+   <target name="install" depends="-print-info, local-install">
+    </target>
+
+   <target name="all" depends="-print-info, local-all">
+   </target>    
+    
+   <target name="local-all" depends="local-clean, local-build, local-install" />
+    
+</project>

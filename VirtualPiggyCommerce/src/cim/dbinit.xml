@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE database-initializer SYSTEM "http://www.atg.com/dtds/dbinit_1_0.dtd">
+<database-initializer>
+  <schema id="coreSchema">
+    <sql>
+      <path>
+        <create>
+          sql/install/${database}/virtual_piggy_integration_order_ddl.sql
+        </create>
+        <drop>
+          sql/uninstall/${database}/drop_virtual_piggy_integration_order_ddl.sql
+        </drop>
+      </path>
+    </sql>
+  </schema>
+  <server-instance-type id="production">
+    <datasource id="switchingCore">
+      <schema id="coreSchema"/>
+    </datasource>
+    <datasource id="nonswitchingCore">
+      <schema id="coreSchema"/>
+    </datasource>
+  </server-instance-type>
+  <server-instance-type id="management">
+    <datasource id="all">
+      <schema id="coreSchema"/>
+    </datasource> 
+  </server-instance-type>
+</database-initializer>
+

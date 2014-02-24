@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE product SYSTEM "http://www.atg.com/dtds/product_1_0.dtd">
+<product id="virtualpiggy">
+	<title resource-key="VirtualPiggyProduct.name">ATG-Virtual Piggy Integration</title>
+	<detail resource-key="VirtualPiggyProduct.detail">Includes Checkout, Payment Integration; Optional ATG-Commerce Reference Store</detail>
+	<product-id-required id ="platform"/>
+	<product-addon-group id="virtualpiggy_group">		 
+		<title>Choose Virtual Piggy Integration Addons for ATG Commerce Reference Store :</title>		
+		<product-id-required id ="store"/>
+		<product-addon id="vpcheckout">
+			<title resource-key="">Override CRS Checkout</title>         
+		</product-addon>	
+	</product-addon-group>	
+	<server-instance-type id="production">
+		<title>Virtual Piggy Production Server</title>	
+		<append-module name="VirtualPiggyCommerce"/>			
+		<config-directory>
+			<property-file file="/com/virtualpiggy/integration/services/VirtualPiggyServiceConfiguration.properties">
+        <property-group id="vp">
+			<property name="merchantId">
+            <input type="text">
+              <label>Virtual Piggy Merchant ID:</label>
+              <validator id="NoWhiteSpaceInputValidator">
+                <error-message>Merchant ID cannot contain whitespace</error-message>
+              </validator>
+			  <validator id="CannotBeBlankValidator">
+                <error-message>Merchant ID cannot be blank</error-message>
+              </validator>
+            </input>
+          </property>
+		   <property name="APIkey">
+            <input type="text">
+              <label>Virtual Piggy API Key:</label>
+              <validator id="NoWhiteSpaceInputValidator">
+                <error-message>API Key cannot contain whitespace</error-message>
+              </validator>
+			  <validator id="CannotBeBlankValidator">
+                <error-message>API Key cannot be blank</error-message>
+              </validator>
+            </input>
+          </property>
+		 <property name="trSrvcServerURL">
+			<value>https://development.virtualpiggy.com/Services/TransactionService.svc</value>
+            <input type="text">
+              <label>Virtual Piggy Transaction Service URL:</label>
+              <validator id="NoWhiteSpaceInputValidator">
+                <error-message>Transaction Service URL cannot contain whitespace</error-message>
+              </validator>
+			  <validator id="CannotBeBlankValidator">
+                <error-message>Transaction Service URL cannot be blank</error-message>
+              </validator>
+            </input>
+          </property>
+		  <property name="oneStepPaymentMerchant">
+			<value>false</value>
+            <input type="text">			  
+              <label>Virtual Piggy One Step Payment Merchant?(true/false):</label>
+              <validator id="NoWhiteSpaceInputValidator">
+                <error-message>OneStepPaymentMerchant cannot contain whitespace</error-message>
+              </validator>
+			</input>
+          </property>
+		  <property name="merchantCapturesPayment">
+			<value>false</value>
+            <input type="text">			  
+              <label>Virtual Piggy Merchant Captures Payment?(true/false):</label>
+              <validator id="NoWhiteSpaceInputValidator">
+                <error-message>MerchantCapturesPayment cannot contain whitespace.</error-message>
+              </validator>
+			 </input>
+          </property>
+        </property-group>
+      </property-file>	  
+		<step id="CheckOverrideCRSEnabledStep">
+			<validator id="OverrideCRSCheckoutEnabledValidator" phase="PRENAVIGATION">
+			  <if-true>
+				 <command type="GOTO_STEP" value="VPOverrideCRSCheckoutStep" />
+			  </if-true>
+			  <if-false>
+				 <command type="GOTO_STEP" value="FinishedOverrideStep" />
+			  </if-false>
+			</validator>
+		</step>
+		
+		<step id="VPOverrideCRSCheckoutStep">
+			<title>Override CRS Checkout</title>
+			<task id="installVPCheckoutPagesTask"/>
+			 <validator id="AlwaysTrueValidator" phase="PRENAVIGATION">
+				<if-true>
+				<command type="EXECUTE_STEP_TASKS"  />
+				<command type="GOTO_STEP" value="FinishedOverrideStep"/>
+			   </if-true>
+			  </validator>
+		</step>
+		<step id="FinishedOverrideStep">
+			<validator id="AlwaysTrueValidator" phase="PRESTEP">
+			   <if-true>
+				  <command type="NEXT_STEP" />
+			   </if-true>
+			</validator>
+		</step>
+		</config-directory>		     
+		</server-instance-type>
+	
+	<server-instance-type id="management">
+		<title>Virtual Piggy Publishing Server</title>	
+		<append-module name="VirtualPiggyCommerce"/>		
+	</server-instance-type>
+	
+</product>
+<!-- @version $Id: //product/Publishing/version/10.1.2/cim/product.xml#4 $$Change: 722493 $-->
