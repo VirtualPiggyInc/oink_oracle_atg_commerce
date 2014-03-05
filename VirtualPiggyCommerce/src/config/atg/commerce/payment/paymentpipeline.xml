@@ -3,7 +3,7 @@
 	PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
 	'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
 	
-<pipelinemanager>
+<pipelinemanager xml-combine="append">
 <!-- This chain is used to process Virtual Piggy payment group to authorize/credit/debit a  payment group.-->
 	<pipelinechain name="virtualPiggyPaymentProcessorChain" transaction="TX_REQUIRED" headlink="createVirtualPiggyPaymentInfo">
 		  <pipelinelink name="createVirtualPiggyPaymentInfo" transaction="TX_MANDATORY">

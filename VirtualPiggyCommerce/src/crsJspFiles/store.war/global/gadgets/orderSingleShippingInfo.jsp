@@ -49,12 +49,12 @@
       <dsp:getvalueof var="isVPCheckout" bean="/atg/userprofiling/Profile.isVirtualPiggyCheckout"/>
       <dsp:getvalueof var="VPUserType" bean="/atg/userprofiling/Profile.virtualPiggyUserType"/>
       <c:if test="${isVPCheckout &&  VPUserType eq 'Parent'}">
-	  <c:if test="${isCurrent}">
+        <c:if test="${isCurrent}">
         <dsp:a page="/checkout/shippingMethod.jsp" title="">
           <span><fmt:message key="common.button.editText" /></span>
         </dsp:a>
       </c:if>
-	  </c:if>
+        </c:if>
     </dd>
   </dl>
 </dsp:page>

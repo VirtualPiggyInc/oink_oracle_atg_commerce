@@ -1,56 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE pipelinemanager
+PUBLIC "-//Art Technology Group, Inc.//DTD Dynamo Pipeline Manager//EN"
+'http://www.atg.com/dtds/pipelinemanager/pipelinemanager_1.0.dtd'>
 <!-- Modify the validatePaymentGroup chain to include -->
 <!-- validation for payment groups of type VirtualPiggyPayment -->
 <pipelinemanager>
-	<pipelinechain name="validatePaymentGroup">
-		<pipelinelink name="dispatchOnPGType">
-			<transition returnvalue="11" link="validateVirtualPiggyPayment"/>
-		</pipelinelink>
-		<pipelinelink name="validateVirtualPiggyPayment">
-			<processor jndi="/com/virtualpiggy/integration/order/payment/processor/ValidateVirtualPiggyPayment"/>
-		</pipelinelink>
-	</pipelinechain>
-	
-	<pipelinechain name="validatePaymentGroupPreConfirmation">
-		<pipelinelink name="dispatchOnPGTypePreConfirmation">
-			<transition returnvalue="11" link="validateVirtualPiggyPaymentPreConfirmation" />
-		</pipelinelink>
-		<pipelinelink transaction="TX_MANDATORY" name="validateVirtualPiggyPaymentPreConfirmation">
-			<processor jndi="/com/virtualpiggy/integration/order/payment/processor/ValidateVirtualPiggyPayment"/>
-		</pipelinelink>
-	</pipelinechain>
-	<!-- validatePaymentGroupNoApproval, validatePaymentGroupPostApproval -->
+<pipelinechain name="validatePaymentGroup">
+  <pipelinelink name="dispatchOnPGType">
+    <transition returnvalue="11" link="validateVirtualPiggyPayment"/>
+  </pipelinelink>
+  <pipelinelink name="validateVirtualPiggyPayment">
+    <processor jndi="/com/virtualpiggy/integration/order/payment/processor/ValidateVirtualPiggyPayment"/>
+  </pipelinelink>
+</pipelinechain>
 
-	<pipelinechain name="validatePaymentGroupNoApproval">
-      <pipelinelink name="dispatchOnPGTypeNoApproval">
-        <transition returnvalue="11" link="validateVirtualPiggyPaymentNoApproval" />
-      </pipelinelink>
-	  <pipelinelink transaction="TX_MANDATORY" name="validateVirtualPiggyPaymentNoApproval">
-          <processor class="atg.service.pipeline.processor.EmptyProcessor"/>
-      </pipelinelink>
-    </pipelinechain>
+<pipelinechain name="validatePaymentGroupPreConfirmation">
+  <pipelinelink name="dispatchOnPGTypePreConfirmation">
+    <processor jndi="/atg/commerce/order/processor/ValidatePaymentGroupByType"/>
+    <transition returnvalue="11" link="validateVirtualPiggyPaymentPreConfirmation" />
+  </pipelinelink>
+  <pipelinelink transaction="TX_MANDATORY" name="validateVirtualPiggyPaymentPreConfirmation">
+    <processor jndi="/com/virtualpiggy/integration/order/payment/processor/ValidateVirtualPiggyPayment"/>
+  </pipelinelink>
+</pipelinechain>
+<!-- validatePaymentGroupNoApproval, validatePaymentGroupPostApproval -->
     
-	<!-- Add a new processor to skip sending fulfillment message if order contains Virtual Piggy payment group. -->
-	<pipelinechain name="processOrder" xml-combine="append">
-	<pipelinelink name="sendPromotionUsedMessage" transaction="TX_MANDATORY" xml-combine="replace">
+<!-- Add a new processor to skip sending fulfillment message if order contains Virtual Piggy payment group. -->
+<pipelinechain name="processOrder" xml-combine="append">
+  <pipelinelink name="sendPromotionUsedMessage" transaction="TX_MANDATORY" xml-combine="replace">
       <processor jndi="/atg/commerce/order/processor/SendPromotionUsedMessage"/>
-      <transition link="virtualPiggyConditionalSendToFulfillment" returnvalue="1"/>
-    </pipelinelink>
-		<pipelinelink name="virtualPiggyConditionalSendToFulfillment" transaction="TX_MANDATORY">
-	      <processor jndi="/com/virtualpiggy/integration/order/processor/CheckVirtualPiggyOrderState"/>
-	      <transition link="sendFulfillmentMessage" returnvalue="1"/>
-	      <transition link="skipFulfillmentMessage" returnvalue="2"/>
-	    </pipelinelink>
-	    <pipelinelink name="skipFulfillmentMessage" transaction="TX_MANDATORY">
+        <transition link="virtualPiggyConditionalSendToFulfillment" returnvalue="1"/>
+  </pipelinelink>
+  <pipelinelink name="virtualPiggyConditionalSendToFulfillment" transaction="TX_MANDATORY">
+          <processor jndi="/com/virtualpiggy/integration/order/processor/CheckVirtualPiggyOrderState"/>
+	        <transition link="sendFulfillmentMessage" returnvalue="1"/>
+		      <transition link="skipFulfillmentMessage" returnvalue="2"/>
+  </pipelinelink>
+      <pipelinelink name="skipFulfillmentMessage" transaction="TX_MANDATORY">
 	      <processor class="atg.service.pipeline.processor.EmptyProcessor"/>
-	     </pipelinelink>
-	</pipelinechain>
+      </pipelinelink>
+</pipelinechain>
   
-	<!-- This chain sends order fulfillment message to the JMS destination (topic/queue) -->
+<!-- This chain sends order fulfillment message to the JMS destination (topic/queue) -->
     <pipelinechain name="vpProcessOrder" transaction="TX_REQUIRED" headlink="sendFulfillmentMessage2">
         <pipelinelink name="sendFulfillmentMessage2" transaction="TX_MANDATORY">
             <processor jndi="/atg/commerce/order/processor/SendFulfillmentMessage"/>
         </pipelinelink>
-    </pipelinechain>  
-  
+    </pipelinechain>
 </pipelinemanager>
-
